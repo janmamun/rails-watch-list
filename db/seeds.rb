@@ -8,21 +8,26 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-require "json"
 require "open-uri"
-url = "https://tmdb.lewagon.com/movie/top_rated"
-user_serialized = URI.open(url).read
-user = JSON.parse(user_serialized)
-# title = user["results"].first["title"]
-# poster_path =user["results"].first["poster_path"]
-# rating= user["results"].first["vote_average"]
-poster_base = "https://image.tmdb.org/t/p/original"
+require "json"
 
-user["results"].first(50).each do |movie|
-  Movie.new(
-    title: movie["title"],
-    poster_url: poster_base + movie["poster_path"],
-    overview: movie["overview"],
-    rating:movie["vote_average"])
+puts "Cleaning up database..."
+Movie.destroy_all
+puts "Database cleaned"
+
+url = "http://tmdb.lewagon.com/movie/top_rated"
+10.times do |i|
+  puts "Importing movies from page #{i + 1}"
+  movies = JSON.parse(URI.open("#{url}?page=#{i + 1}").read)["results"]
+  movies.each do |movie|
+    puts "Creating #{movie["title"]}"
+    base_poster_url = "https://image.tmdb.org/t/p/original"
+    Movie.create(
+      title: movie["title"],
+      overview: movie["overview"],
+      poster_url: "#{base_poster_url}#{movie["backdrop_path"]}",
+      rating: movie["vote_average"]
+    )
+  end
 end
-Bookmark.create(comment: "horrible movie")
+puts "Movies created"

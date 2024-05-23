@@ -5,11 +5,53 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
+  <body class="bg-light" style="background: url('https://source.unsplash.com/1600x900/?movies,cinema') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-family: Arial, sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle, rgba(157, 56, 100, 0.7) 0%, rgba(11, 18, 27, 0.9) 100%);
+      z-index: 1;
+    }
+     .container {
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      z-index: 2;
+      position: relative;
+    }
+      h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
 
-  <body>
+    p {
+      font-size: 1.5em;
+    }
+">
     <%= yield %>
   </body>
+    <div class="container">
+    <h1>Welcome to Movie Night With Mamun!</h1>
+    <p>Experience the best movies in a beautiful setting.</p>
+  </div>
 </html>
