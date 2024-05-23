@@ -1,11 +1,15 @@
-<h1>All Lists</h1>
-
-<%= link_to 'New List', new_list_path %>
-
-<ul>
-  <% @lists.each do |list| %>
-    <li>
-      <%= link_to list.name, list_path(list) %>
-    </li>
-  <% end %>
-</ul>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+      <h1>Movie List</h1>
+      <ul class="list-group mb-3">
+        <% @lists.each do |list| %>
+          <li class="list-group-item">
+            <%= link_to list.name, list_path(list) %>
+          </li>
+        <% end %>
+      </ul>
+      <%= link_to "Create a new list", new_list_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+</div>
